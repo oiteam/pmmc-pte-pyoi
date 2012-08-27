@@ -2,16 +2,10 @@
 # -*- coding: utf-8 -*-
 
 import os
-import pai
+from pypte import pai
 from subprocess import call
 
-CONFIG_DIR = os.path.expanduser('~') + '/.config/pmmc/pte'
-CONFIG_FILE = CONFIG_DIR + '/pai.conf'
-
-if not os.path.exists(CONFIG_DIR):
-	os.makedirs(CONFIG_DIR)
-
-cfgparser = pai.CfgParser(CONFIG_FILE)
+cfgparser = pai.CfgParser()
 parser = pai.ArgParser()
 parser.set_defaults(local=cfgparser.getboolean('DEFAULT', 'local'),
                     server=cfgparser.get('DEFAULT', 'server address'),
