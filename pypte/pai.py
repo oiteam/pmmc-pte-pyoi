@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from ConfigParser import SafeConfigParser
-from argparse import ArgumentParser
+import pypte
 from xml.dom.minidom import parse as domparse
 from urllib2 import urlopen
 
@@ -45,6 +44,7 @@ def _parseXML(activity, local, server):
                 if codPAI == activity:
                         d.pop('arquivo')
                         d['quantidade'] = int(d['quantidade'])
+
                         return d
 
         raise Exception('Atividade %s não encontrada no arquivo pai.xml.' % activity.upper())
@@ -54,17 +54,17 @@ def _showSummary(activity, local, server, summary=None):
         if not summary:
                 summary = _parseXML(activity, local, server)
 
-        print 'Sumário da atividade', activity, ':'
-        print '>>> Diretório:        ', summary['atividade']
-        print '>>> Título:           ', summary['titulo']
-        print '>>> Descrição:        ', summary['descricao']
-        print '>>> Disciplina:       ', summary['disciplina']
-        print '>>> Nível:            ', summary['nivel']
-        print '>>> Tipo de atividade:', summary['tipo']
-        print '>>> Número de páginas:', summary['quantidade']
-        print '>>> Proposta por:     ', summary['professor']
-        print '>>> Desenvolvida por: ', summary['orientador']
-        print '>>>     Na escola:    ', summary['escola']
+        print 'Sumário da atividade %s:' % activity
+        print '>>> Diretório:         %s' % summary['atividade']
+        print '>>> Título:            %s' % summary['titulo']
+        print '>>> Descrição:         %s' % summary['descricao']
+        print '>>> Disciplina:        %s' % summary['disciplina']
+        print '>>> Nível:             %s' % summary['nivel']
+        print '>>> Tipo de atividade: %s' % summary['tipo']
+        print '>>> Número de páginas: %s' % summary['quantidade']
+        print '>>> Proposta por:      %s' % summary['professor']
+        print '>>> Desenvolvida por:  %s' % summary['orientador']
+        print '>>>     Na escola:     %s' % summary['escola']
 
 
 def getURL(activity, page=1, local=True, server='localhost', verbose=False):
@@ -83,10 +83,9 @@ def getURL(activity, page=1, local=True, server='localhost', verbose=False):
                 return _getPath(suffix, local, server)
 
 
-class CfgParser(SafeConfigParser):
-	def __init__(self, configfile):
-		SafeConfigParser.__init__(self, {'local': 'True', 'server address': 'localhost', 'browser': 'firefox'})
-		self.read(configfile)
+class CfgParser(pypte.CfgParser):
+	def __init__(self, configfile='pai.conf'):
+		pypte.CfgParser.__init__(self, configfile)
 
 		if not self.has_section('Firefox'):
 			self.add_section('Firefox')
@@ -97,39 +96,11 @@ class CfgParser(SafeConfigParser):
 			self.set('Chromium', 'kiosk mode', 'False')
 
 
-class ArgParser(ArgumentParser):
+class ArgParser(pypte.ArgParser):
 	def __init__(self):
-		ArgumentParser.__init__(self, description='PyPAI - lançador/cliente para o PAI com funcionalidades adicionais')
+		pypte.ArgParser.__init__(self, description='PyPAI - lançador/cliente para o PAI com funcionalidades adicionais')
 
-		########## I. GENERIC OPTIONS ##########
-		self.add_argument('-S', '--save',
-                                  action='store_true',
-                                  help='salva as configurações passadas pela linha de comando no arquivo de configuração')
-		self.add_argument('-V', '--verbose',
-                                  action='store_true',
-                                  help='exibe informações mais detalhadas')
-
-		#### BEGIN XGROUP
-		xgroup = self.add_mutually_exclusive_group()
-		xgroup.add_argument('-l', '--local',
-                                    action='store_true',
-                                    default=True,
-                                    help='busca os arquivos de atividades em uma instalação local (default)')
-		xgroup.add_argument('-r', '--remote',
-                                    action='store_false',
-                                    dest='local',
-                                    help='busca os arquivos de atividades em um servidor remoto')
-		#### END XGROUP
-
-		self.add_argument('-s', '--server',
-                                  default='localhost',
-                                  help='define o endereço do servidor remoto como SERVER (útil quando empregado em conjunto com a opção -r)')
-
-		self.add_argument('-b', '--browser',
-                                  choices=('firefox', 'chromium-browser', 'google-chrome', 'opera'),
-                                  help='escolhe o navegador a ser utilizado com o PAI')
-
-		########## II. PAI SPECIFIC OPTIONS ##########
+		########## PAI SPECIFIC OPTIONS ##########
 		group = self.add_argument_group('opções específicas para o PAI')
 		group.add_argument('-a', '--activity',
                                    default='menu',
@@ -139,13 +110,13 @@ class ArgParser(ArgumentParser):
                                    default=1,
                                    help='abre a atividade do PAI diretamente na página PAGE; funciona somente em conjunto com a opção -a (default: 1)')
 
-		########## III. FIREFOX SPECIFIC OPTIONS ##########
+		########## FIREFOX SPECIFIC OPTIONS ##########
 		group = self.add_argument_group('opções específicas para o Firefox')
 		group.add_argument('-P', '--profile',
                                    default='default',
                                    help='utiliza o perfil do Firefox PROFILE para navegar no PAI')
 
-		########## IV. CHROMIUM/GOOGLE CHROME/OPERA SPECIFIC OPTIONS ##########
+		########## CHROMIUM/GOOGLE CHROME/OPERA SPECIFIC OPTIONS ##########
 		group = self.add_argument_group('opções específicas para o Chromium/Google Chrome/Opera')
 
 		### BEGIN XGROUP
@@ -159,7 +130,3 @@ class ArgParser(ArgumentParser):
                                     dest='kiosk',
                                     help='inicia o navegador em modo janela')
 		### END XGROUP
-
-		# Hacks argparse's non-localizable messages
-		self._action_groups[1].title = 'opções genéricas'
-		self._actions[0].help = 'exibe esta mensagem de ajuda e sai'
