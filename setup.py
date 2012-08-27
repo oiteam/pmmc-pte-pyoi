@@ -10,5 +10,5 @@ setup(name='PyPTE',
       author_email='lbsousajr@gmail.com',
       url='https://github.com/oiteam/pmmc-pte-pypte.git',
       packages=['pypte'],
-      scripts=['pypai']
+      scripts=['bin/pypai']
 )
