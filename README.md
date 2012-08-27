@@ -1,4 +1,4 @@
-pmmc-pte-pypai
+pmmc-pte-pypte
 ==============
 
-PyPAI - enhanced launcher/client for PAI
+PyPTE - collection of Python utils for PTE-PMMC projects
