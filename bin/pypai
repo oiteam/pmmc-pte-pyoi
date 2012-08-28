@@ -7,6 +7,10 @@ from subprocess import call
 
 cfgparser = pai.CfgParser()
 parser = pai.ArgParser()
+parser.add_argument('-v', '--version',
+                    action='version',
+                    version='%(prog)s 4.0.1.0')
+parser._actions[-1].help = 'exibe o número de versão do programa e sai'
 parser.set_defaults(local=cfgparser.getboolean('DEFAULT', 'local'),
                     server=cfgparser.get('DEFAULT', 'server address'),
                     browser=cfgparser.get('DEFAULT', 'browser'),
