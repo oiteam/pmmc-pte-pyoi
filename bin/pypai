@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import os
-from pypte import pai
+from pyoi import pai
 from subprocess import call
 
 cfgparser = pai.CfgParser()

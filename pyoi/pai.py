@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-import pypte
+import pyoi
 from xml.dom.minidom import parse as domparse
 from urllib2 import urlopen
 
@@ -83,9 +83,9 @@ def getURL(activity, page=1, local=True, server='localhost', verbose=False):
                 return _getPath(suffix, local, server)
 
 
-class CfgParser(pypte.CfgParser):
+class CfgParser(pyoi.CfgParser):
 	def __init__(self, configfile='pai.conf'):
-		pypte.CfgParser.__init__(self, configfile)
+		pyoi.CfgParser.__init__(self, configfile)
 
 		if not self.has_section('Firefox'):
 			self.add_section('Firefox')
@@ -96,9 +96,9 @@ class CfgParser(pypte.CfgParser):
 			self.set('Chromium', 'kiosk mode', 'False')
 
 
-class ArgParser(pypte.ArgParser):
+class ArgParser(pyoi.ArgParser):
 	def __init__(self):
-		pypte.ArgParser.__init__(self, description='PyPAI - lançador/cliente para o PAI com funcionalidades adicionais')
+		pyoi.ArgParser.__init__(self, description='PyPAI - lançador/cliente para o PAI com funcionalidades adicionais')
 
 		########## PAI SPECIFIC OPTIONS ##########
 		group = self.add_argument_group('opções específicas para o PAI')
