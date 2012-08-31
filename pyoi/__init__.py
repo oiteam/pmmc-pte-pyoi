@@ -14,7 +14,8 @@ class CfgParser(SafeConfigParser):
 		if not os.path.exists(configdir):
 			os.makedirs(configdir)
 
-		self.read('/'.join((configdir, configfile)))
+		self.configfile = '/'.join((configdir, configfile))
+		self.read(self.configfile)
 
 	def save(self):
 		with open(self.configfile, 'wb') as inifile:
