@@ -24,9 +24,7 @@ if args.save:
 	cfgparser.set('DEFAULT', 'browser', args.browser)
 	cfgparser.set('Firefox', 'profile', args.profile)
 	cfgparser.set('Chromium', 'kiosk mode', str(args.kiosk))
-
-	with open(CONFIG_FILE, 'wb') as inifile:
-		cfgparser.write(inifile)
+	cfgparser.save()
 
 url = pai.getURL(args.activity.upper(), args.page, args.local, args.server, args.verbose)
 cmdline = [args.browser]

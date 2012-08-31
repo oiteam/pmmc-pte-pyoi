@@ -8,12 +8,17 @@ from argparse import ArgumentParser
 class CfgParser(SafeConfigParser):
 	def __init__(self, configfile):
 		SafeConfigParser.__init__(self, {'local': 'True', 'server address': 'localhost', 'browser': 'firefox'})
+		self.configfile = configfile
 		configdir = os.path.expanduser('~') + '/.config/pmmc/pte'
 
 		if not os.path.exists(configdir):
 			os.makedirs(configdir)
 
 		self.read('/'.join((configdir, configfile)))
+
+	def save(self):
+		with open(self.configfile, 'wb') as inifile:
+			self.write(inifile)
 
 
 class ArgParser(ArgumentParser):
