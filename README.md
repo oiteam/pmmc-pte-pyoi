@@ -1,4 +1,4 @@
-pmmc-pte-pypte
-==============
+pmmc-pte-pyoi
+=============
 
-PyPTE - collection of Python utils for PTE-PMMC projects
+PyOI - collection of Python tools for PTE-PMMC projects
