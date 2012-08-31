@@ -9,15 +9,14 @@ class CfgParser(SafeConfigParser):
 	def __init__(self, configfile):
 		SafeConfigParser.__init__(self, {'local': 'True', 'server address': 'localhost', 'browser': 'firefox'})
 		self.configfile = configfile
-		configdir = os.path.expanduser('~') + '/.config/pmmc/pte'
-
-		if not os.path.exists(configdir):
-			os.makedirs(configdir)
-
-		self.configfile = '/'.join((configdir, configfile))
+		self.configdir = os.path.expanduser('~') + '/.config/pmmc/pte'
+		self.configfile = '/'.join((self.configdir, configfile))
 		self.read(self.configfile)
 
 	def save(self):
+		if not os.path.exists(self.configdir):
+			os.makedirs(self.configdir)
+
 		with open(self.configfile, 'wb') as inifile:
 			self.write(inifile)
 
