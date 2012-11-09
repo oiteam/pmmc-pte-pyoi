@@ -1,0 +1,54 @@
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
+
+import os
+from pyoi import sei
+from subprocess import call
+
+cfgparser = sei.CfgParser()
+parser = sei.ArgParser()
+parser.add_argument('-v', '--version',
+                    action='version',
+                    version='%(prog)s 4.0.1.0')
+parser._actions[-1].help = 'exibe o número de versão do programa e sai'
+parser.set_defaults(local=cfgparser.getboolean('DEFAULT', 'local'),
+                    server=cfgparser.get('DEFAULT', 'server address'),
+                    browser=cfgparser.get('DEFAULT', 'browser'),
+                    profile=cfgparser.get('Firefox', 'profile'),
+                    kiosk=cfgparser.getboolean('Chromium', 'kiosk mode'))
+args = parser.parse_args()
+
+if args.save:
+	cfgparser.set('DEFAULT', 'local', str(args.local))
+	cfgparser.set('DEFAULT', 'server address', args.server)
+	cfgparser.set('DEFAULT', 'browser', args.browser)
+	cfgparser.set('Firefox', 'profile', args.profile)
+	cfgparser.set('Chromium', 'kiosk mode', str(args.kiosk))
+	cfgparser.save()
+
+url = sei.getURL(args.local, args.server, args.verbose)
+cmdline = [args.browser]
+	
+if args.browser == 'firefox':
+	cmdline.extend(('-P', args.profile, url))
+elif args.browser in ('chromium-browser', 'google-chrome'):
+	cmdline.append('--incognito')
+
+	if args.local:
+		cmdline.append('--allow-file-access-from-files')
+
+	if args.kiosk:
+		cmdline.extend(('--kiosk', url))
+	else:
+		cmdline.append('--app=%s' % url)
+elif args.browser == 'opera':
+	cmdline.extend(('-nosession', '-nomail', '-nomaillinks', '-nomenu', '-noprint', '-nosave'))
+
+	if args.kiosk:
+		cmdline.extend(('-kioskmode', '-resetonexit'))
+
+	cmdline.append(url)
+else:
+	cmdline.append(url)
+
+call(cmdline)
