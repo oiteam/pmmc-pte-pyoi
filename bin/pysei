@@ -9,7 +9,7 @@ cfgparser = sei.CfgParser()
 parser = sei.ArgParser()
 parser.add_argument('-v', '--version',
                     action='version',
-                    version='%(prog)s 4.0.1.0')
+                    version='%(prog)s 4.0.1.1')
 parser._actions[-1].help = 'exibe o número de versão do programa e sai'
 parser.set_defaults(local=cfgparser.getboolean('DEFAULT', 'local'),
                     server=cfgparser.get('DEFAULT', 'server address'),
@@ -32,8 +32,6 @@ cmdline = [args.browser]
 if args.browser == 'firefox':
 	cmdline.extend(('-P', args.profile, url))
 elif args.browser in ('chromium-browser', 'google-chrome'):
-	cmdline.append('--incognito')
-
 	if args.local:
 		cmdline.append('--allow-file-access-from-files')
 

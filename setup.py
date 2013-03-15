@@ -4,7 +4,7 @@
 from distutils.core import setup
 
 setup(name='PyOI',
-      version='4.0.1.0',
+      version='4.0.1.1',
       description='Collection of Python tools for PTE-PMMC projects',
       author='Laércio de Sousa',
       author_email='lbsousajr@gmail.com',
