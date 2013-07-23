@@ -1,0 +1,10 @@
+[Desktop Entry]
+Encoding=UTF-8
+Type=Application
+Name=Socrates
+Categories=Education;
+Exec=socrates
+Icon=wine
+Terminal=false
+StartupNotify=true
+Version=1.0

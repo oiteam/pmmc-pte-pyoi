@@ -1,0 +1,10 @@
+[Desktop Entry]
+Encoding=UTF-8
+Type=Application
+Name=SEI
+Categories=Education;
+Exec=sei
+Icon=pmmc-oi-sei
+Terminal=false
+StartupNotify=true
+Version=2.12.2.3
