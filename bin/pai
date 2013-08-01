@@ -32,6 +32,8 @@ cmdline = [args.browser]
 if args.browser == 'firefox':
 	cmdline.extend(('-P', args.profile, url))
 elif args.browser in ('chromium-browser', 'google-chrome'):
+	cmdline.append('--allow-outdated-plugins')
+
 	if args.local:
 		cmdline.append('--allow-file-access-from-files')
 
