@@ -5,18 +5,24 @@ from ConfigParser import SafeConfigParser
 from argparse import ArgumentParser
 
 
+def checkdir(path):
+	full_path = os.path.expanduser(path)
+
+	if not os.path.exists(full_path):
+		os.makedirs(full_path)
+
+	return full_path
+
+
 class CfgParser(SafeConfigParser):
 	def __init__(self, configfile):
 		SafeConfigParser.__init__(self, {'local': 'True', 'server address': 'localhost', 'browser': 'firefox'})
 		self.configfile = configfile
-		self.configdir = os.path.expanduser('~') + '/.config/pmmc/pte'
+		self.configdir = checkdir('~/.config/pmmc/pte')
 		self.configfile = '/'.join((self.configdir, configfile))
 		self.read(self.configfile)
 
 	def save(self):
-		if not os.path.exists(self.configdir):
-			os.makedirs(self.configdir)
-
 		with open(self.configfile, 'wb') as inifile:
 			self.write(inifile)
 
