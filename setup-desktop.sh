@@ -22,8 +22,11 @@ xdg-desktop-menu ${action} desktop/pmmc-oi-socrates.desktop
 
 for i in arie arie2 arie3 arie4
 do
-    echo ">>> xdg-icon-resource ${action} --size 175 icons/${i}-175.png pmmc-oi-${i}"
-    xdg-icon-resource ${action} --size 175 icons/${i}-175.png pmmc-oi-${i}
+    for size in 16 22 24 32 36 48 64 72 96 128
+    do
+        echo ">>> xdg-icon-resource ${action} --size ${size} icons/${i}-175.png pmmc-oi-${i}"
+        xdg-icon-resource ${action} --size ${size} icons/${i}-175.png pmmc-oi-${i}
+    done
 
     echo ">>> xdg-desktop-menu ${action} desktop/pmmc-oi-${i}.desktop"
     xdg-desktop-menu ${action} desktop/pmmc-oi-${i}.desktop
