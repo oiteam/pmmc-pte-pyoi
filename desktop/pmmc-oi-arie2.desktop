@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=Brincando com Ariê 2
+Exec=arie2
+Categories=Education;
+StartupNotify=true
+Terminal=false
+Type=Application
+Icon=pmmc-oi-arie2
+StartupWMClass=pmmc-oi-arie2

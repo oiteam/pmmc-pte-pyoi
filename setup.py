@@ -11,4 +11,4 @@ setup(name='PyOI',
       license='GNU GPLv3',
       url='https://github.com/oiteam/pmmc-pte-pyoi.git',
       packages=['pyoi'],
-      scripts=['bin/pai', 'bin/sei'])
+      scripts=['bin/pai', 'bin/sei', 'bin/arie', 'bin/arie2', 'bin/arie3', 'bin/arie4'])

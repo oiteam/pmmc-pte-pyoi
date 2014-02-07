@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=Brincando com Ariê 3 - Na Ilha da Aventura
+Exec=arie3
+Categories=Education;
+StartupNotify=true
+Terminal=false
+Type=Application
+Icon=pmmc-oi-arie3
+StartupWMClass=pmmc-oi-arie3

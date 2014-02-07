@@ -19,3 +19,12 @@ done
 
 echo ">>> xdg-desktop-menu ${action} desktop/pmmc-oi-socrates.desktop"
 xdg-desktop-menu ${action} desktop/pmmc-oi-socrates.desktop
+
+for i in arie arie2 arie3 arie4
+do
+    echo ">>> xdg-icon-resource ${action} --size 175 icons/${i}-175.png pmmc-oi-${i}"
+    xdg-icon-resource ${action} --size 175 icons/${i}-175.png pmmc-oi-${i}
+
+    echo ">>> xdg-desktop-menu ${action} desktop/pmmc-oi-${i}.desktop"
+    xdg-desktop-menu ${action} desktop/pmmc-oi-${i}.desktop
+done

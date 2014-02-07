@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=Ariê e os Patinhos
+Exec=arie4
+Categories=Education;
+StartupNotify=true
+Terminal=false
+Type=Application
+Icon=pmmc-oi-arie4
+StartupWMClass=pmmc-oi-arie4
