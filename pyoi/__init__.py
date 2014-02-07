@@ -55,7 +55,7 @@ class ArgParser(ArgumentParser):
                                   help='define o endereço do servidor remoto como SERVER (útil quando empregado em conjunto com a opção -r)')
 
 		self.add_argument('-b', '--browser',
-                                  choices=('firefox', 'chromium-browser', 'google-chrome', 'opera'),
+                                  choices=('firefox', 'chromium-browser', 'google-chrome', 'opera', 'epiphany'),
                                   help='escolhe o navegador a ser utilizado')
 
 		# Hacks argparse's non-localizable messages
