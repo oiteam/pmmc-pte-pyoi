@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import os
-from pyoi import sei
+from pyoi import sei, checkdir
 from subprocess import call
 
 cfgparser = sei.CfgParser()
@@ -46,6 +46,8 @@ elif args.browser == 'opera':
 		cmdline.extend(('-kioskmode', '-resetonexit'))
 
 	cmdline.append(url)
+elif args.browser == 'epiphany':
+	cmdline.extend(('--application-mode', '--profile=%s' % checkdir('~/.config/epiphany/app-epiphany-sei'), url))
 else:
 	cmdline.append(url)
 
