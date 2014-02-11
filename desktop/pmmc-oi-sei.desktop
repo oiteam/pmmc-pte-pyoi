@@ -8,3 +8,4 @@ Icon=pmmc-oi-sei
 Terminal=false
 StartupNotify=true
 Version=2.12.2.3
+StartupWMClass=pmmc-oi-sei
