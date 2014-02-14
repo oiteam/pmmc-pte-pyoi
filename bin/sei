@@ -48,7 +48,7 @@ elif args.browser == 'opera':
 	cmdline.append(url)
 elif args.browser == 'epiphany':
 	wm_class = 'pmmc-oi-sei'
-	cmdline.extend(('--application-mode', '--profile=' + checkdir('~/.config/epiphany/' + wm_class), url))
+	cmdline.extend(('--application-mode', '--profile=' + checkdir('~/.config/epiphany/app-' + wm_class), url))
 else:
 	cmdline.append(url)
 
