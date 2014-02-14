@@ -28,17 +28,18 @@ if args.save:
 
 url = sei.getURL(args.local, args.server, args.verbose)
 cmdline = [args.browser]
+wm_class = 'pmmc-oi-sei'
 	
 if args.browser == 'firefox':
 	cmdline.extend(('-P', args.profile, url))
 elif args.browser in ('chromium-browser', 'google-chrome'):
 	if args.local:
-		cmdline.append('--allow-file-access-from-files')
+		cmdline.extend(('--allow-file-access-from-files', '--class=' + wm_class))
 
 	if args.kiosk:
 		cmdline.extend(('--kiosk', url))
 	else:
-		cmdline.append('--app=%s' % url)
+		cmdline.append('--app=' + url)
 elif args.browser == 'opera':
 	cmdline.extend(('-nosession', '-nomail', '-nomaillinks', '-nomenu', '-noprint', '-nosave'))
 
@@ -47,7 +48,6 @@ elif args.browser == 'opera':
 
 	cmdline.append(url)
 elif args.browser == 'epiphany':
-	wm_class = 'pmmc-oi-sei'
 	cmdline.extend(('--application-mode', '--profile=' + checkdir('~/.config/epiphany/app-' + wm_class), url))
 else:
 	cmdline.append(url)

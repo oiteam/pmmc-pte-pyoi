@@ -27,12 +27,13 @@ if args.save:
 	cfgparser.save()
 
 url = pai.getURL(args.activity.upper(), args.page, args.local, args.server, args.verbose)
+wm_class = 'pmmc-oi-pai'
 cmdline = [args.browser]
 	
 if args.browser == 'firefox':
 	cmdline.extend(('-P', args.profile, url))
 elif args.browser in ('chromium-browser', 'google-chrome'):
-	cmdline.append('--allow-outdated-plugins')
+	cmdline.extend(('--allow-outdated-plugins', '--class=' + wm_class))
 
 	if args.local:
 		cmdline.append('--allow-file-access-from-files')
@@ -40,7 +41,7 @@ elif args.browser in ('chromium-browser', 'google-chrome'):
 	if args.kiosk:
 		cmdline.extend(('--kiosk', url))
 	else:
-		cmdline.append('--app=%s' % url)
+		cmdline.append('--app=' + url)
 elif args.browser == 'opera':
 	cmdline.extend(('-nosession', '-nomail', '-nomaillinks', '-nomenu', '-noprint', '-nosave'))
 
